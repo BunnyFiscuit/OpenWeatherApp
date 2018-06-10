@@ -3,4 +3,12 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_current">Current</string>
+    <string name="title_forecast">Forecast</string>
+    <string name="weather_icon">Weather Icon</string>
+    <string name="dummy_location">..</string>
+    <string name="dummy_temperature">0</string>
+    <string name="wind_data">Wind data</string>
+    <string name="humidty">Humidity</string>
+    <string name="unit">Unit</string>
 </resources>
