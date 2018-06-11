@@ -11,4 +11,7 @@
     <string name="wind_data">Wind data</string>
     <string name="humidty">Humidity</string>
     <string name="unit">Unit</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="day_after">Day After</string>
+    <string name="thirdDay">Third Day</string>
 </resources>
