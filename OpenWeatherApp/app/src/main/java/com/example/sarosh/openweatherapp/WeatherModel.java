@@ -20,7 +20,7 @@ public class WeatherModel implements IWeather {
     private static WeatherModel instance = null;
 
     private final String API_KEY = "ddbb487d7785b2dc6f9069b418732ee6";
-    protected OWM weatherApp = new OWM(API_KEY);
+    private OWM weatherApp = new OWM(API_KEY);
 
     // We could use the phone's GPS to get the longitude and latitude.
     // but we'll just use this for now.
@@ -28,11 +28,12 @@ public class WeatherModel implements IWeather {
     private CurrentWeather currentWeather;
     private OWM.Unit unit = OWM.Unit.METRIC;
 
-    public WeatherModel() {
+    private WeatherModel() {
         weatherApp.setUnit(unit);
         weatherApp.setLanguage(OWM.Language.ENGLISH);
     }
 
+    // Singleton
     public static WeatherModel getInstance(){
         if (instance == null){
             instance = new WeatherModel();
@@ -40,6 +41,8 @@ public class WeatherModel implements IWeather {
         return instance;
     }
 
+
+    // Returns an ArrayList with the weather information about the chosen city.
     @Override
     public ArrayList<String> getWeatherInfo() throws APIException {
         ArrayList<String> info = new ArrayList<>();
@@ -55,24 +58,28 @@ public class WeatherModel implements IWeather {
         return info;
     }
 
+    // Gets Forecast information from the API. Saves the temperature in and the hour into an
+    // ArrayList which is then returned.
+    @Override
     public ArrayList<String> getForecastInfo() throws APIException{
         HourlyWeatherForecast hourlyWeatherForecast = weatherApp.hourlyWeatherForecastByCityName(city);
         if (hourlyWeatherForecast.hasDataList()) {
             ArrayList<String> info = new ArrayList<>();
+            // Loop through the next 3 forecasts to save the weather data in info
             for (int i = 0; i < 3; i++) {
+                // Get the weather data and time for weather data
                 WeatherData wd = Objects.requireNonNull(hourlyWeatherForecast.getDataList()).get(i);
-
                 String time = hourlyWeatherForecast.getDataList().get(i).getDateTimeText();
+
+                // Format the time to match how we want it
                 try{
                     Date d = new SimpleDateFormat("yyyy-mm-dd h:mm:ss", Locale.ENGLISH).parse(time);
-
-                    info.add(new SimpleDateFormat("hh:mm a", Locale.ENGLISH).format(d.getTime()));
+                    info.add(new SimpleDateFormat("h:mm a", Locale.ENGLISH).format(d.getTime()));
                 } catch (ParseException e){
                     e.printStackTrace();
                 }
 
-
-
+                // Formatting the temperature
                 double temp = wd.getMainData().getTemp();
                 String deg;
                 if (unit == OWM.Unit.METRIC)
@@ -80,13 +87,12 @@ public class WeatherModel implements IWeather {
                 else deg = "°F";
                 info.add(String.format(Locale.ENGLISH, "%.0f%s", temp, deg));
             }
-
             return info;
         }
         return null;
     }
 
-
+    // Returns the name of the city
     @Override
     public String getCityName() {
         if (currentWeather.hasMainData())
@@ -94,6 +100,8 @@ public class WeatherModel implements IWeather {
         else return "No city name found";
     }
 
+
+    // Returns the city temperature
     @Override
     public String getCityTemp() {
         if (currentWeather.hasMainData()) {
@@ -107,6 +115,8 @@ public class WeatherModel implements IWeather {
         else return "No temperature found";
     }
 
+
+    // Returns the city humidity
     @Override
     public String getCityHumidity(){
         if(currentWeather.hasMainData()) {
@@ -116,6 +126,7 @@ public class WeatherModel implements IWeather {
         return null;
     }
 
+    // Returns the wind speed in the city
     @Override
     public String getCityWindSpeed() {
         if(currentWeather.hasMainData()){
@@ -125,11 +136,11 @@ public class WeatherModel implements IWeather {
                 ut = "meter/sec";
             else ut = "miles/sec";
             return String.format(Locale.ENGLISH, "%s %s", speed, ut);
-
         }
         return null;
     }
 
+    // Returns the weather description
     @Override
     public String getWeatherDescription() {
         if (currentWeather.hasWeatherList())
@@ -137,11 +148,14 @@ public class WeatherModel implements IWeather {
         return "No weather description";
     }
 
+
+    // Returns the id for the icon to use for the current weather.
     @Override
     public int getConditionId() {
         if (currentWeather.hasWeatherList()) {
+            String code = currentWeather.getWeatherList().get(0).getIconCode();
             int id;
-            switch(currentWeather.getWeatherList().get(0).getIconCode()){
+            switch(code){
                 case "01d": id = R.drawable.sunny;
                     break;
                 case "01n": id = R.drawable.night_clear;
@@ -175,16 +189,17 @@ public class WeatherModel implements IWeather {
             }
             return id;
         }
-
-
         else return R.drawable.current_icon;
     }
 
+
+    // Sets the new city for the API to get information from.
     @Override
     public void setCity(String name) {
         this.city = name;
     }
 
+    // Changes unit from Metric to Imperial, and vice-versa.
     @Override
     public void changeUnit() {
         if (unit == OWM.Unit.METRIC)

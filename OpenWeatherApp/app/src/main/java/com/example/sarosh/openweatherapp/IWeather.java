@@ -17,4 +17,5 @@ public interface IWeather {
     void setCity(String name);
     void changeUnit();
     ArrayList<String> getWeatherInfo() throws APIException;
+    ArrayList<String> getForecastInfo() throws APIException;
 }

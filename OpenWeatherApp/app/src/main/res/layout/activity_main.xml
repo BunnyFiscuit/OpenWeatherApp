@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.example.sarosh.openweatherapp.MainActivity">
 
-    <TextView
+    z<TextView
         android:id="@+id/textView"
         android:layout_width="500dp"
-        android:layout_height="120dp"
+        android:layout_height="121dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/gradient"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/conditionDescription" />
 
@@ -131,7 +131,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="171dp" />
+        app:layout_constraintGuide_begin="83dp" />
 
     <Button
         android:id="@+id/tempSwitch"
@@ -147,7 +147,7 @@
 
     <TextView
         android:id="@+id/conditionDescription"
-        android:layout_width="302dp"
+        android:layout_width="200dp"
         android:layout_height="41dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -176,90 +176,81 @@
         android:id="@+id/forecastOne"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/tomorrow"
         android:textAlignment="center"
         android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/forecastTwo"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/conditionDescription" />
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
         android:id="@+id/forecastTwo"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/day_after"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toStartOf="@+id/forecastThree"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/forecastOne"
-        app:layout_constraintTop_toBottomOf="@+id/conditionDescription" />
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
         android:id="@+id/forecastThree"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="56dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="@string/thirdDay"
         android:textAlignment="center"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/conditionDescription" />
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
         android:id="@+id/fOneTemp"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/colorBrightest"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/inputLocation"
+        app:layout_constraintEnd_toStartOf="@+id/fTwoTemp"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forecastOne"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/forecastOne" />
 
     <TextView
         android:id="@+id/fTwoTemp"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/colorBrightest"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/fOneTemp"
+        app:layout_constraintEnd_toStartOf="@+id/fThreeTemp"
         app:layout_constraintTop_toBottomOf="@+id/forecastTwo" />
 
     <TextView
         android:id="@+id/fThreeTemp"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="44dp"
         android:gravity="center"
         android:textAlignment="center"
         android:textColor="@color/colorBrightest"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/inputLocation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.23"
-        app:layout_constraintStart_toEndOf="@+id/fTwoTemp"
-        app:layout_constraintTop_toBottomOf="@+id/forecastThree"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/forecastThree" />
 
 </android.support.constraint.ConstraintLayout>
