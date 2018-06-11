@@ -96,7 +96,8 @@ public class WeatherModel implements IWeather {
     @Override
     public String getCityName() {
         if (currentWeather.hasMainData())
-        return currentWeather.getCityName();
+        return currentWeather.getCityName() + ", " +
+                currentWeather.getSystemData().getCountryCode();
         else return "No city name found";
     }
 
