@@ -5,7 +5,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import net.aksingh.owmjapis.api.APIException;
 
+import java.security.Key;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Init all the fields so that they can be updated later.
         lastUpdate = findViewById(R.id.lastUpdate);
-        cityName = findViewById(R.id.locationText);
+        //cityName = findViewById(R.id.locationText);
         cityTemp = findViewById(R.id.currentTemp);
         cityHumidity = findViewById(R.id.humidity);
         windSpeed = findViewById(R.id.windSpeed);
@@ -61,14 +64,14 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        Button searchCity = findViewById(R.id.locationButton);
-        searchCity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                WeatherModel.getInstance().setCity(weatherLocation.getText().toString());
-                new Connection().execute();
-            }
-        });
+        //Button searchCity = findViewById(R.id.locationButton);
+        //searchCity.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View view) {
+        //        WeatherModel.getInstance().setCity(weatherLocation.getText().toString());
+        //        new Connection().execute();
+        //    }
+        //});
 
         Button change = findViewById(R.id.tempSwitch);
         change.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +79,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 WeatherModel.getInstance().changeUnit();
                 new Connection().execute();
+            }
+        });
+
+        weatherLocation.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)){
+                    WeatherModel.getInstance().setCity(weatherLocation.getText().toString());
+                    new Connection().execute();
+                    return true;
+                }
+                return false;
             }
         });
 
@@ -97,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     // Here we apply the weather information to the relevant fields.
-                    cityName.setText(weatherData.get(0));
-                    weatherLocation.setText(cityName.getText());
+                    //cityName.setText(weatherData.get(0));
+                    weatherLocation.setText(weatherData.get(0));
                     cityTemp.setText(weatherData.get(1));
                     cityHumidity.setText(weatherData.get(2));
                     windSpeed.setText(weatherData.get(3));
